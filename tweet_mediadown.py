@@ -9,28 +9,21 @@ import os
 import emoji
 import urllib.request
 
-
-
-
-#関数:　UTCをJSTに変換する
+#UTC convert to JST
 def change_time(utc_time):
-    #イギリスのtimezoneを設定するために再定義する
-    # utc_time = datetime(u_time.year, u_time.month,u_time.day, \
-    # u_time.hour,u_time.minute,u_time.second, tzinfo=timezone.utc)
-    #タイムゾーンを日本時刻に変換
     jst_time = utc_time.astimezone(pytz.timezone("Asia/Tokyo"))
-    # 文字列で返す
+    # change to str
     str_time = jst_time.strftime("%Y-%m-%d_%H:%M:%S")
     return str_time
 
-#ファイル名をツイート日時（日本時間）に設定
+#file name set to tweet time (japan time)
 def change_name(date):
     date_modify = re.sub("\:| ", "", date)
     date_modify1 = re.sub("-", "_", date_modify)
     return date_modify1
 
 
-#画像ダウンロード--複数枚対応
+#image download -- Supports multiple numbers
 def picDL(check_url):
     new_file = tweets[j][0]
     title =["a","b","c","d"]
@@ -40,7 +33,8 @@ def picDL(check_url):
         print(image_url)
 
 
-#動画ダウンロード--すべてのgifおよび動画をmp4形式で保存
+#Video download--save all gifs and videos in mp4 format
+
 def movieDL(check_url):
     new_file = tweets[j][0]
     tw_video = re.findall(r'https\S+mp4',str(check_url))
@@ -55,7 +49,8 @@ def movieDL(check_url):
         
 
 
-#ユーザーごとにフォルダを作成
+#Create a folder for each user
+
 def makeDIR(name):
             document_path = os.getenv("USERPROFILE") + "/Pictures"
             path = document_path+"/"+name
@@ -77,7 +72,7 @@ query = "(from:yume_bmhr) -filter:replies until:2021-10-16 since:2021-05-01"
 tweets = []
 limit = 20
 
-#フォルダの作成
+#Create folder
 # makeDIR("yume")
 
 
@@ -109,23 +104,16 @@ for tweet in sntwitter.TwitterSearchScraper(query).get_items():
 # print(df)
 
 
-
-
-
-
-
-
-
 #  df.to_csv("tw_yume.csv",encoding='utf-8-sig')
 
 # for j in trange(len(tweets)):
 #     Tweet_count = Tweet_count + 1
-#     if "Photo" in str(tweets[j][2]):  #图片
+#     if "Photo" in str(tweets[j][2]):  #Picture
 #         Pic_count = Pic_count + len(tweets[j][2])
 #         picDL(tweets[j][2])
 #         # continue
 
-#     elif "Video" in str(tweets[j][2]):  #动画
+#     elif "Video" in str(tweets[j][2]):  #video
 #         Video_count = Video_count + 1
 #         movieDL(tweets[j][2])
 #         # continue
@@ -133,4 +121,4 @@ for tweet in sntwitter.TwitterSearchScraper(query).get_items():
 #         print(">")
 #         # continue
 
-# print("处理结束。\n共检查推文数:{}\n下载视频数:{}\n下载图片数:{}\n".format(Tweet_count,Video_count,Pic_count))
+print("Task finish.\nTotal checked tweets:{}\nNumber of Downloaded Videos:{}\nNumber of Downloaded Pictures:{}\n".format(Tweet_count,Video_count,Pic_count))
