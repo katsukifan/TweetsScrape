@@ -25,33 +25,6 @@ def change_name(date):
     return date_modify1
 
 
-#Image download--Multiple images supported
-
-def picDL(check_url):
-    new_file = tweets[j][0]
-    title =["a","b","c","d"]
-    for i in range(len(check_url)):
-        image_url = check_url[i].fullUrl
-        # urllib.request.urlretrieve(image_url,new_file+"_"+title[i]+".jpg")
-        print(image_url)
-
-
-#Video download--save all gifs and videos in mp4 format
-
-def movieDL(check_url):
-    new_file = tweets[j][0]
-    tw_video = re.findall(r'https\S+mp4',str(check_url))
-    movie_url = tw_video[0]
-    # for k in range(len(check_url)):
-    #     movie_url.append(str(check_url[k]["url"]))
-    #     movie_size.append(int(urllib.request.urlopen(movie_url[k]).info()['Content-Length']))
-    # max_size = max(movie_size)
-    # max_size_index = movie_size.index(max_size)
-    print(new_file,movie_url)
-    # urllib.request.urlretrieve(movie_url,new_file+".mp4")
-        
-
-
 #Create a folder for each user
 
 def makeDIR(name):
@@ -62,13 +35,12 @@ def makeDIR(name):
             os.chdir(path)
 
 
-
 Tweet_count = 0
 Pic_count = 0
 Video_count = 0
 
 
-#INPUT USER ID
+#INPUT user ID and tweet limit
 
 print("---")
 print("Please input userid who you want to download")
@@ -85,9 +57,9 @@ makeDIR(userId)
 # query = "(from:rin_agemon) -filter:replies"
 # query = "(from:mayuri_prsm) -filter:replies until:2022-11-23 since:2019-09-01"
 # query = "(from:yume_bmhr) -filter:replies until:2022-02-26 since:2021-05-01"
-query = "(from:"+userId+") -filter:replies until:2022-10-01 since:2022-09-15"
+query = "(from:"+userId+") -filter:replies until:2022-11-25 since:2021-01-01"
 tweets = []
-limits = int(limit)
+limits = int(limit)   #string to int
 
 for tweet in sntwitter.TwitterSearchScraper(query).get_items():
 
