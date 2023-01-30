@@ -40,16 +40,12 @@ def picDL(name, datas):
 def movieDL(name, datas):
     video_url = datas[0].url
     bit = int(datas[0].bitrate or 0)
-    # print(datas)
     for index in range(len(datas) - 1):
         if bit > int(datas[index + 1].bitrate or 0):
             video_url = video_url
-            # print('类型A:', bit)
         else:
             video_url = datas[index + 1].url
             bit = int(datas[index + 1].bitrate or 0)
-    #         print('类型B:', bit)
-    # print(video_url)
     video_name = name + ".mp4"
     urllib.request.urlretrieve(video_url, video_name)
 
